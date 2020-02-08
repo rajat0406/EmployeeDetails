@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.constraints.Positive;
-
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.DepartmentDTO;
-import com.example.demo.dto.DepartmentMapper;
 import com.example.demo.model.DepartmentModel;
 import com.example.demo.repository.DepartmentRepository;
 
+
 @Service
 public class DepartmentServiceImplementation implements DepartmentService {
+	
+	Logger logger = Logger.getLogger(DepartmentServiceImplementation.class);
 	
 	@Autowired
 	public DepartmentRepository departmentRepo;
@@ -33,10 +34,9 @@ public class DepartmentServiceImplementation implements DepartmentService {
 		return department;
 	}
 
-	@Override
-	public List<DepartmentModel> saveDepartmentWithUser(DepartmentModel dpModel) {
+	public List<DepartmentModel> saveDepartmentWithUser(DepartmentModel dpDTO) {
 		// TODO Auto-generated method stub
-		departmentRepo.save(dpModel);
+		departmentRepo.save(dpDTO);
 		
 		return null;
 	}
@@ -50,5 +50,23 @@ public class DepartmentServiceImplementation implements DepartmentService {
 		return null;
 
 	}
+
+	@Override
+	public void deleteUserByDeptId(Long userId) {
+		// TODO Auto-generated method stub
+//		try {
+//			logger.info("deleteUserById method called. userId="+userId);
+//			Optional<DepartmentModel> optional = departmentRepo.findById(userId);
+//			
+//			DepartmentModel dpModel = optional.get();
+//			if(dpModel != null) {
+//		}
+//		catch(Exception e) {
+//			logger.error(e);;
+//		}
+		logger.info("deleteUserById method called. userId="+userId);
+		departmentRepo.deleteById(userId);
+	}
+
 
 }

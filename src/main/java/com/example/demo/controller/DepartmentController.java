@@ -6,6 +6,7 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.DepartmentDTO;
 import com.example.demo.model.DepartmentModel;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.utils.ResponseModel;
@@ -48,7 +50,7 @@ public class DepartmentController {
 	
 	@ApiOperation(value = "Find The user by userId ")
 	@GetMapping("/id/{id}")
-	public ResponseEntity<ResponseModel> findUserById(@PathVariable("id") @Positive(message = "Id must be greater than 0")  Long userId){
+	public ResponseEntity<ResponseModel> findUserByDeptId(@PathVariable("id") @Positive(message = "Id must be greater than 0")  Long userId){
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
 				.setMessage("Succesfully Saved")
@@ -56,5 +58,14 @@ public class DepartmentController {
 				,HttpStatus.OK);	
 	}
 	
+	@DeleteMapping("/deleteUser/{id}")
+	public ResponseEntity<ResponseModel> deleteUserByDeptId(@PathVariable("id") @Positive(message = "Id must be greater than 0")  Long userId){
+		departmentService.deleteUserByDeptId(userId);
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Successfully Deleted")		
+				,HttpStatus.OK);
+		
+	}
 
 }

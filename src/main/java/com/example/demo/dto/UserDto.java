@@ -67,7 +67,4 @@ public class UserDto {
 		return "UserDTO [" + ", name=" + name + ", city=" + city + ", mobileNumber=" + mobileNumber
 				 + "registerNo="+ registerNo + "]";
 	}
-
-
-
 }
