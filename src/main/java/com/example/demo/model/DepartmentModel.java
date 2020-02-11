@@ -14,8 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import io.swagger.annotations.ApiModelProperty;
-
 
 @Entity
 @Table(name="department")
@@ -32,21 +30,20 @@ public class DepartmentModel {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name="employee_info", joinColumns = @JoinColumn(name = "departmentId"), inverseJoinColumns = @JoinColumn(name = "registerId"))
-	@Column(name="employee", unique=false, nullable = false)
 	private List<UserModel> employee;
 	
 
-	@ApiModelProperty()
-	private int userStatus;
-	
-	
-	public int getUserStatus() {
-		return userStatus;
-	}
-	public DepartmentModel setUserStatus(int userStatus) {
-		this.userStatus = userStatus;
-		return this;
-	}
+//	@ApiModelProperty()
+//	private int userStatus;
+//	
+//	
+//	public int getUserStatus() {
+//		return userStatus;
+//	}
+//	public DepartmentModel setUserStatus(int userStatus) {
+//		this.userStatus = userStatus;
+//		return this;
+//	}
 	public String getDepartment() {
 		return department;
 	}

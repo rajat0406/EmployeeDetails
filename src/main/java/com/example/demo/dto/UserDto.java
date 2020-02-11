@@ -12,10 +12,6 @@ public class UserDto {
 
 	private String mobileNumber;
 	
-
-	public String getName() {
-		return name;
-	}
 	
 	@ApiModelProperty(notes = "status of the user. 1-Active | 2-Inactive | 5-SoftDelete")
 	private int userStatus;
@@ -29,6 +25,10 @@ public class UserDto {
 		return this;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
 	public UserDto setName(String name) {
 		this.name = name;
 		return this;

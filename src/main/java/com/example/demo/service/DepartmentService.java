@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.DepartmentDTO;
 import com.example.demo.model.DepartmentModel;
+import com.example.demo.model.UserModel;
 
 @Service
 public interface DepartmentService {
@@ -18,9 +19,9 @@ public interface DepartmentService {
 	
 	public void deleteUserByDeptId(Long userId);
 
-	public List<DepartmentModel> saveDepartmentWithUser(DepartmentModel dpModel);
+	public DepartmentModel saveDepartmentWithUser(DepartmentModel dpModel);
 	
-	public DepartmentModel getDepartmentDetails(Long depId, Long id);
+	public UserModel getDepartmentDetails(String depName, String mobileNumber);
 
 	public List<DepartmentModel> getUserWithDepartment();
 	

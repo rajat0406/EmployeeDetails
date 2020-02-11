@@ -40,11 +40,11 @@ public class DepartmentController {
 				,HttpStatus.OK);
 	}
 	@PostMapping("/addDepartmentWithUser")
-	public ResponseEntity<ResponseModel> saveDepartmentWithUser(@RequestBody DepartmentModel dpModel) {
+	public ResponseEntity<ResponseModel> saveDepartmentWithUser(@RequestBody DepartmentModel departmentModel) {
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
 				.setMessage("Succesfully Saved")
-				.setObject(departmentService.saveDepartmentWithUser(dpModel))
+				.setObject(departmentService.saveDepartmentWithUser(departmentModel))
 				,HttpStatus.OK);
 	}
 	
@@ -99,12 +99,12 @@ public class DepartmentController {
 		
 	}
 	
-	@GetMapping("/empInfo")
-	public ResponseEntity<ResponseModel> getDepartmentDetails(@RequestParam Long depId,@RequestParam Long id) {
+	@PostMapping("/empInfo")
+	public ResponseEntity<ResponseModel> getDepartmentDetails(@RequestParam String depName,@RequestParam String mobileNumber) {
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
-				.setMessage("Succesfully Saved")
-				.setObject(departmentService.getDepartmentDetails(depId, id))
+				.setMessage("Succesfully Fetched")
+				.setObject(departmentService.getDepartmentDetails(depName, mobileNumber))
 				,HttpStatus.OK);
 	}
 

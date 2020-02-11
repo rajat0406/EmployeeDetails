@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import javax.validation.constraints.Positive;
-
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +41,7 @@ public class UserController {
 	public ResponseEntity<ResponseModel> getUser(){
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
-				.setMessage("Succesfully Saved")
+				.setMessage("Succesfully Fetched")
 				.setObject(userService.getUser())
 				,HttpStatus.OK);
 		
@@ -51,7 +49,7 @@ public class UserController {
 	
 	@ApiOperation(value = "Find The user by mobile ")
 	@GetMapping("/mobile/{mobile}")
-	public ResponseEntity<ResponseModel> findByMobileNumber(@PathVariable("mobile") @Positive(message = "Id must be greater than 0")  String mobile){
+	public ResponseEntity<ResponseModel> findByMobileNumber(@PathVariable("mobile")  String mobile){
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
 				.setMessage("Succesfully Saved")
@@ -59,4 +57,6 @@ public class UserController {
 				,HttpStatus.OK);
 		
 	}
+	
+	
 }
