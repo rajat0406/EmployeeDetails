@@ -8,15 +8,9 @@ public class DepartmentDTO {
 	
 	private String department;
 	
-	private List<String> departmentName;
-
-	public List<String> getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(List<String> departmentName) {
-		this.departmentName = departmentName;
-	}
+	private List<UserDto> employee;
+	
+	
 
 	public Long getDepartmentId() {
 		return departmentId;
@@ -35,11 +29,21 @@ public class DepartmentDTO {
 		this.department = department;
 		return this;
 	}
-	
-	@Override
-	public String toString() {
-		return "UserModel [departmentId=" + departmentId + ", departmentName=" + department
-			+"departmentName="+ departmentName	+"]";
+
+	public List<UserDto> getEmployee() {
+		return employee;
 	}
+
+	public DepartmentDTO setEmployee(List<UserDto> employee) {
+		this.employee = employee;
+		return this;
+	}
+	
+	public String toString() {
+		
+		return "DepartmentDTO [departmentId=" + departmentId + ", departmentName=" + department + ", employee=" + employee
+				+"]";
+	}
+	
 
 }

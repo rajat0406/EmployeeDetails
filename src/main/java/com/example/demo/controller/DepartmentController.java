@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.DepartmentDTO;
 import com.example.demo.model.DepartmentModel;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.utils.ResponseModel;
@@ -23,7 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping
+@RequestMapping("/department")
 @Api(value="department")
 public class DepartmentController {
 	Logger logger = Logger.getLogger(UserController.class);
@@ -35,7 +35,7 @@ public class DepartmentController {
 	public ResponseEntity<ResponseModel> saveDepartment() {
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
-				.setMessage("Succesfully Saved")
+				.setMessage("Succesfully Fetched")
 				.setObject(departmentService.saveDepartment())
 				,HttpStatus.OK);
 	}
@@ -48,15 +48,46 @@ public class DepartmentController {
 				,HttpStatus.OK);
 	}
 	
+	@GetMapping("/all")
+	public ResponseEntity<ResponseModel> getUserWithDepartment(){
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Succesfully Saved")
+				.setObject(departmentService.getUserWithDepartment())
+				,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/getUserOfSameDepartment/{departmentName}")
+	public ResponseEntity<ResponseModel> getUserFromDepartment(@PathVariable("departmentName") String DepartmentName){
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Succesfully Fetched")
+				.setObject(departmentService.getUserFromDepartment(DepartmentName))
+				,HttpStatus.OK);
+		
+	}
+	
 	@ApiOperation(value = "Find The user by userId ")
 	@GetMapping("/id/{id}")
 	public ResponseEntity<ResponseModel> findUserByDeptId(@PathVariable("id") @Positive(message = "Id must be greater than 0")  Long userId){
 		return new ResponseEntity<>(new ResponseModel()
 				.setStatus(1)
-				.setMessage("Succesfully Saved")
+				.setMessage("Succesfully Fetched")
 				.setObject(departmentService.findUserByDeptId(userId))
 				,HttpStatus.OK);	
 	}
+	
+	@ApiOperation(value = "Find The user by userId ")
+	@GetMapping("/fewValues/{id}")
+	public ResponseEntity<ResponseModel> findUserFewDetailsByDeptId(@PathVariable("id") @Positive(message = "Id must be greater than 0")  Long userId){
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Succesfully Fetched")
+				.setObject(departmentService.findUserFewDetailsByDeptId(userId))
+				,HttpStatus.OK);	
+	}
+	
 	
 	@DeleteMapping("/deleteUser/{id}")
 	public ResponseEntity<ResponseModel> deleteUserByDeptId(@PathVariable("id") @Positive(message = "Id must be greater than 0")  Long userId){
@@ -66,6 +97,15 @@ public class DepartmentController {
 				.setMessage("Successfully Deleted")		
 				,HttpStatus.OK);
 		
+	}
+	
+	@GetMapping("/empInfo")
+	public ResponseEntity<ResponseModel> getDepartmentDetails(@RequestParam Long depId,@RequestParam Long id) {
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Succesfully Saved")
+				.setObject(departmentService.getDepartmentDetails(depId, id))
+				,HttpStatus.OK);
 	}
 
 }

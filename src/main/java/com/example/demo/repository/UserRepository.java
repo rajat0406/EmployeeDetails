@@ -8,4 +8,6 @@ import com.example.demo.model.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long>{
 	
+	public UserModel findByMobileNumber(String mobile);
+	
 }

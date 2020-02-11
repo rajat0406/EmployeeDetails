@@ -1,9 +1,10 @@
 package com.example.demo.dto;
 
+import java.util.stream.Collectors;
+
 import org.jboss.logging.Logger;
 
 import com.example.demo.model.DepartmentModel;
-import com.example.demo.model.UserModel;
 
 public class DepartmentMapper {
 	
@@ -17,19 +18,22 @@ public class DepartmentMapper {
 		
 		return new DepartmentModel()
 				.setDepartmentId(dto.getDepartmentId())
-				.setDepartment(dto.getDepartment());
+				.setDepartment(dto.getDepartment())
+				.setEmployee(dto.getEmployee().stream().map(UserMapper::toModel).collect(Collectors.toList()));
+				
 	}
 	
 	
-	public static DepartmentDTO toDto(DepartmentModel model) {
+
+		public static DepartmentDTO toDto(DepartmentModel model) {
 		logger.info("toDto method called=" + model);
 		
 		return new DepartmentDTO()
 				.setDepartmentId(model.getDepartmentId())
-				.setDepartment(model.getDepartment());				
+				.setDepartment(model.getDepartment())
+				.setEmployee(model.getEmployee().stream().map(UserMapper::toDto).collect(Collectors.toList()));		
 		
 	}
-	
 	
 
 }

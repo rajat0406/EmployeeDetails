@@ -3,14 +3,22 @@ package com.example.demo.service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.Positive;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.DepartmentDTO;
+import com.example.demo.dto.UserDto;
+import com.example.demo.dto.UserMapper;
+import com.example.demo.exception.CustomException;
 import com.example.demo.model.DepartmentModel;
 import com.example.demo.repository.DepartmentRepository;
+
+
 
 
 @Service
@@ -29,7 +37,7 @@ public class DepartmentServiceImplementation implements DepartmentService {
 //				"Production" , "Logistics" , "PR" , "Security"};
 		List<String> department = Arrays.asList("Sales" , "Export" , "IT", "Marketing" , "Financial" , 
 				"Human Resources", "Buying" , "R&D", "Quality" , "Administration", 
-				"Production" , "Logistics" , "PR" , "Security");
+				"Prooduction" , "Logistics" , "PR" , "Security");
 		
 		return department;
 	}
@@ -47,7 +55,7 @@ public class DepartmentServiceImplementation implements DepartmentService {
 			return optional.get();
 			
 		}
-		return null;
+		throw new CustomException(String.format("user does not exist", "user"));
 
 	}
 
@@ -66,6 +74,44 @@ public class DepartmentServiceImplementation implements DepartmentService {
 //		}
 		logger.info("deleteUserById method called. userId="+userId);
 		departmentRepo.deleteById(userId);
+	}
+
+	@Override
+	public DepartmentDTO findUserFewDetailsByDeptId(Long userId) {
+		
+		Optional<DepartmentModel> optional =  departmentRepo.findById(userId);
+		if(optional.isPresent()) {
+		DepartmentModel model=optional.get();
+		
+		List<UserDto> uDto=model.getEmployee().stream().map(UserMapper::toDtoForDept).collect(Collectors.toList());
+		return new DepartmentDTO().setDepartment(model.getDepartment()).setEmployee(uDto);
+		}
+		
+		
+		throw new CustomException(String.format("user does not exist", "user"));
+	
+	}
+
+	@Override
+	public DepartmentModel getDepartmentDetails(Long depId, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DepartmentModel> getUserWithDepartment() {
+		return departmentRepo.findAll().stream().collect(Collectors.toList());
+
+	}
+
+	@Override
+	public List<DepartmentModel> getUserFromDepartment(String departmentName) {
+		
+		//DepartmentModel model = departmentRepo.findDepartment(departmentName);
+		DepartmentModel model = departmentRepo.findByDepartment(departmentName);
+		System.out.println("+++++++++++++++++++------------"+model);
+		
+		return null;
 	}
 
 

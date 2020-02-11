@@ -33,6 +33,14 @@ public class UserMapper {
 			.setRegisterNo(model.getRegisterNo());		
 		
 	}
+	public static UserDto toDtoForDept(UserModel model) {
+		logger.info("toDto method called=" + model);
+		
+		return new UserDto() 
+			.setMobileNumber(model.getMobileNumber())
+			.setName(model.getName());
+		
+	}
 	
 	
 

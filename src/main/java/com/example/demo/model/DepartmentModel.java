@@ -35,6 +35,7 @@ public class DepartmentModel {
 	@Column(name="employee", unique=false, nullable = false)
 	private List<UserModel> employee;
 	
+
 	@ApiModelProperty()
 	private int userStatus;
 	
@@ -70,7 +71,7 @@ public class DepartmentModel {
 	
 	@Override
 	public String toString() {
-		return "UserModel [departmentId=" + departmentId + ", departmentName=" + department + ", employee=" + employee
+		return "DepartmentModel [departmentId=" + departmentId + ", departmentName=" + department + ", employee=" + employee
 				+"]";
 	}
 	

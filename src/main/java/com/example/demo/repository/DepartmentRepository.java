@@ -7,5 +7,7 @@ import com.example.demo.model.DepartmentModel;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<DepartmentModel, Long> {
+	
+	public DepartmentModel findByDepartment(String departmentname);
 
 }

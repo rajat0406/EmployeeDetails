@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import static springfox.documentation.builders.PathSelectors.regex;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-
 public class CustomConfiguration extends WebMvcConfigurationSupport{
 	
     @Bean

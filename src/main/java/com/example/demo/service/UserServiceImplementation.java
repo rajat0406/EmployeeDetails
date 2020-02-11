@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.dto.UserMapper;
+import com.example.demo.model.UserModel;
 import com.example.demo.repository.UserRepository;
 
 @Service
@@ -28,6 +29,13 @@ UserRepository userRepo;
 	public List<UserDto> getUser() {
 		
 		return userRepo.findAll().stream().map(UserMapper::toDto).collect(Collectors.toList());
+		
+	}
+
+	@Override
+	public UserModel findByMobileNumber(String mobile) {
+	UserModel model = userRepo.findByMobileNumber(mobile);
+	return model;
 		
 	}
 	
