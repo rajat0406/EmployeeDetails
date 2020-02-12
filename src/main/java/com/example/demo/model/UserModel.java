@@ -29,6 +29,10 @@ public class UserModel {
 	@Column(name = "mobileNumber", unique = true,nullable = false)
 	@Pattern(regexp = "(^[0-9]{10}$)", message = "Not a valid contact number.It must be ten digit.")
 	private String mobileNumber;
+	
+	
+	@Column(name = "userStatus", columnDefinition = "int default 1", nullable = false)
+	private int userStatus;
 
 //	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	@JoinTable(name="employee_info", joinColumns = @JoinColumn(name = "registerId"), inverseJoinColumns = @JoinColumn(name = "Id"))
@@ -52,6 +56,15 @@ public class UserModel {
 //		this.department = department;
 //		return this;
 //	}
+
+	public int getUserStatus() {
+		return userStatus;
+	}
+
+	public UserModel setUserStatus(int userStatus) {
+		this.userStatus = userStatus;
+		return this;
+	}
 
 	public Long getRegisterNo(){
 		return registerNo;

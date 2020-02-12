@@ -15,4 +15,6 @@ public interface Userservice {
 	public List<UserDto> getUser();
 	
 	public UserModel findByMobileNumber(String mobile);
+	
+	public UserDto updateUser(UserDto userDto, Long userId);
 }

@@ -32,18 +32,17 @@ public class DepartmentModel {
 	@JoinTable(name="employee_info", joinColumns = @JoinColumn(name = "departmentId"), inverseJoinColumns = @JoinColumn(name = "registerId"))
 	private List<UserModel> employee;
 	
-
-//	@ApiModelProperty()
-//	private int userStatus;
-//	
-//	
-//	public int getUserStatus() {
-//		return userStatus;
-//	}
-//	public DepartmentModel setUserStatus(int userStatus) {
-//		this.userStatus = userStatus;
-//		return this;
-//	}
+	@Column(name = "userStatus", columnDefinition = "int default 1", nullable = false)
+	private int userStatus;
+	
+	
+	public int getUserStatus() {
+		return userStatus;
+	}
+	public DepartmentModel setUserStatus(int userStatus) {
+		this.userStatus = userStatus;
+		return this;
+	}
 	public String getDepartment() {
 		return department;
 	}

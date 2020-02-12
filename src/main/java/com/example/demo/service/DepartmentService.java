@@ -26,5 +26,7 @@ public interface DepartmentService {
 	public List<DepartmentModel> getUserWithDepartment();
 	
 	public List<DepartmentModel> getUserFromDepartment(String DepartmentName);
+	
+	public DepartmentDTO updateDepartment(DepartmentDTO depDTO,Long depId);
 
 }

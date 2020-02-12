@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DepartmentDTO;
+import com.example.demo.dto.DepartmentMapper;
 import com.example.demo.dto.UserDto;
 import com.example.demo.dto.UserMapper;
 import com.example.demo.exception.CustomException;
@@ -31,9 +32,6 @@ public class DepartmentServiceImplementation implements DepartmentService {
 	@Override
 	public List<String> saveDepartment() {
 
-//		String[] department = { "Sales" , "Export" , "IT", "Marketing" , "Financial" , 
-//				"Human Resources", "Buying" , "R&D", "Quality" , "Administration", 
-//				"Production" , "Logistics" , "PR" , "Security"};
 		List<String> department = Arrays.asList("Sales", "Export", "IT", "Marketing", "Financial", "Human Resources",
 				"Buying", "R&D", "Quality", "Administration", "Prooduction", "Logistics", "PR", "Security");
 		
@@ -44,7 +42,7 @@ public class DepartmentServiceImplementation implements DepartmentService {
 		logger.info("saveUser method called . UserDTO = " + model);
 		 
 		
-		if(model.getDepartment()==null && model.getEmployee()==null && model.getDepartment().length()==0 && !model.getEmployee().isEmpty()) {
+		if((model.getDepartment()==null || model.getEmployee()==null )|| model.getDepartment().length()==0 || model.getDepartment().isEmpty() || model.getEmployee().isEmpty()) {
 			throw new CustomException(String.format("%s Object Received","Null"));
 		}
 		
@@ -63,18 +61,17 @@ public class DepartmentServiceImplementation implements DepartmentService {
 
 	@Override
 	public void deleteUserByDeptId(Long userId) {
-//		try {
-//			logger.info("deleteUserById method called. userId="+userId);
-//			Optional<DepartmentModel> optional = departmentRepo.findById(userId);
-//			
-//			DepartmentModel dpModel = optional.get();
-//			if(dpModel != null) {
-//		}
-//		catch(Exception e) {
-//			logger.error(e);;
-//		}
 		logger.info("deleteUserById method called. userId=" + userId);
-		departmentRepo.deleteById(userId);
+	
+		
+			Optional<DepartmentModel> optional = departmentRepo.findById(userId);
+			
+			if(optional.isPresent()) 
+				departmentRepo.deleteById(userId);
+		
+			else {
+				throw new CustomException(String.format("%s does not exists", "User"));
+			}
 	}
 
 	@Override
@@ -96,17 +93,17 @@ public class DepartmentServiceImplementation implements DepartmentService {
 	@Override
 	public UserModel getDepartmentDetails(String depName, String mobileNumber) {
 		List<DepartmentModel> model = departmentRepo.findByDepartment(depName);
-		List<UserModel> u = new ArrayList<>();
-		model.forEach((value) -> {
-			value.getEmployee().forEach(x -> {
-				if (x.getMobileNumber().equals(mobileNumber)) {
-					u.add(x);
+		List<UserModel> employeeList = new ArrayList<>();
+		model.forEach((employeeInfo) -> {
+			employeeInfo.getEmployee().forEach(value -> {
+				if (value.getMobileNumber().equals(mobileNumber)) {
+					employeeList.add(value);
 				}
 			});
 		});
 
-		if (u.size()>0&&u.get(0) != null)
-			return u.get(0);
+		if (employeeList.size()>0 && employeeList.get(0)!= null)
+			return employeeList.get(0);
 
 		throw new CustomException(String.format("%s does not exist", "user"));
 
@@ -125,6 +122,42 @@ public class DepartmentServiceImplementation implements DepartmentService {
 //		System.out.println("+++++++++++++++++++------------"+model);
 
 		return model;
+	}
+
+	@Override
+	public DepartmentDTO updateDepartment(DepartmentDTO depDTO, Long depId) {
+		try {
+			if((depDTO.getUserStatus()==1 || depDTO.getUserStatus()==2)&& depDTO.getUserStatus()!=5) {
+				
+				System.out.println("+++++++++++++++++++++++++++++++++++++--------------------------------");
+				
+				Optional<DepartmentModel> optional = departmentRepo.findById(depId);
+				
+				DepartmentModel originalModel = null;
+				if(optional.isPresent()) {
+					originalModel=optional.get();
+				}
+				else
+				{
+					throw CustomException.throwException("User does Not Exists");
+				}
+				
+				if(depDTO.getDepartment()==null) {
+					depDTO.setDepartment(originalModel.getDepartment());
+				}
+				
+				DepartmentModel depModel = DepartmentMapper.toModel(depDTO);
+				depModel.setDepartmentId(depId);
+				
+				return DepartmentMapper.toDto(departmentRepo.save(depModel));
+				
+			}		
+		throw CustomException.throwException("Not a valid status");
+		}
+		catch(Exception e){
+			logger.error(e);
+			throw(e);
+		}
 	}
 
 }

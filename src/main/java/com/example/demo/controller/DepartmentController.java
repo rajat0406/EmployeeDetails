@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.DepartmentDTO;
 import com.example.demo.model.DepartmentModel;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.utils.ResponseModel;
@@ -107,5 +109,14 @@ public class DepartmentController {
 				.setObject(departmentService.getDepartmentDetails(depName, mobileNumber))
 				,HttpStatus.OK);
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<ResponseModel> updateDepartment(@PathVariable("id") @Positive(message = "id must be greater than 0")  Long depId,@RequestBody DepartmentDTO depDTO){
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Succesfully Updated")
+				.setObject(departmentService.updateDepartment(depDTO, depId))
+				,HttpStatus.OK);	
+	}	
 
 }

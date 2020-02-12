@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import javax.validation.constraints.Positive;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,9 +57,15 @@ public class UserController {
 				.setStatus(1)
 				.setMessage("Succesfully Saved")
 				.setObject(userService.findByMobileNumber(mobile))
-				,HttpStatus.OK);
-		
+				,HttpStatus.OK);	
 	}
 	
-	
+	@PutMapping("/{id}")
+	public ResponseEntity<ResponseModel> updateUser(@PathVariable("id") @Positive(message = "id must be greater than 0")  Long userId,@RequestBody UserDto userDto){
+		return new ResponseEntity<>(new ResponseModel()
+				.setStatus(1)
+				.setMessage("Succesfully Updated")
+				.setObject(userService.updateUser(userDto, userId))
+				,HttpStatus.OK);	
+	}	
 }

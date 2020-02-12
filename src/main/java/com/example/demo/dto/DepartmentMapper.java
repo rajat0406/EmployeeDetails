@@ -19,8 +19,8 @@ public class DepartmentMapper {
 		return new DepartmentModel()
 				.setDepartmentId(dto.getDepartmentId())
 				.setDepartment(dto.getDepartment())
-				.setEmployee(dto.getEmployee().stream().map(UserMapper::toModel).collect(Collectors.toList()));
-				
+				.setEmployee(dto.getEmployee().stream().map(UserMapper::toModel).collect(Collectors.toList()))
+				.setUserStatus(dto.getUserStatus());		
 	}
 	
 	
@@ -31,7 +31,8 @@ public class DepartmentMapper {
 		return new DepartmentDTO()
 				.setDepartmentId(model.getDepartmentId())
 				.setDepartment(model.getDepartment())
-				.setEmployee(model.getEmployee().stream().map(UserMapper::toDto).collect(Collectors.toList()));		
+				.setEmployee(model.getEmployee().stream().map(UserMapper::toDto).collect(Collectors.toList()))
+				.setUserStatus(model.getUserStatus());		
 		
 	}
 	

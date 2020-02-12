@@ -1,9 +1,7 @@
 package com.example.demo.dto;
 
 import org.jboss.logging.Logger;
-
 import com.example.demo.model.UserModel;
-
 
 
 public class UserMapper {
@@ -19,9 +17,9 @@ public class UserMapper {
 				.setCity(dto.getCity())
 				.setMobileNumber(dto.getMobileNumber())
 				.setName(dto.getName())
-				.setRegisterNo(dto.getRegisterNo());
+				.setRegisterNo(dto.getRegisterNo())
+				.setUserStatus(dto.getUserStatus());
 	}
-	
 	
 	public static UserDto toDto(UserModel model) {
 		logger.info("toDto method called=" + model);
@@ -30,8 +28,8 @@ public class UserMapper {
 			.setCity(model.getCity())
 			.setMobileNumber(model.getMobileNumber())
 			.setName(model.getName())
-			.setRegisterNo(model.getRegisterNo());		
-		
+			.setRegisterNo(model.getRegisterNo())
+			.setUserStatus(model.getUserStatus());	
 	}
 	public static UserDto toDtoForDept(UserModel model) {
 		logger.info("toDto method called=" + model);
@@ -41,7 +39,4 @@ public class UserMapper {
 			.setName(model.getName());
 		
 	}
-	
-	
-
 }
